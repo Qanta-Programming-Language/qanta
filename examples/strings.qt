@@ -1,0 +1,11 @@
+# Example: It can be placed directly and by a variable which type is string
+
+# Directly
+
+echo "Hello World"
+
+# Variable
+
+let text = "Hello World";
+
+echo text;
