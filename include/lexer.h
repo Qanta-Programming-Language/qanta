@@ -4,6 +4,7 @@
 typedef enum {
     TOKEN_LET,
     TOKEN_ECHO,      
+    TOKEN_STRING,
     TOKEN_IDENTIFIER,
     TOKEN_NUMBER,
     TOKEN_ASSIGN,

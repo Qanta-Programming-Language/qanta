@@ -4,117 +4,178 @@
 #include <ctype.h>
 #include "lexer.h"
 
-static const char* src;
+static const char *src;
 static size_t pos = 0;
 
-void init_lexer(const char* source_code) {
+void init_lexer(const char *source_code)
+{
     src = source_code;
     pos = 0;
 }
 
-char peek() {
+char peek()
+{
     return src[pos];
 }
 
-void advance() {
+void advance()
+{
     pos++;
 }
 
-int isalpha_or_underscore(char c) {
+int isalpha_or_underscore(char c)
+{
     return isalpha(c) || c == '_';
 }
 
-int isalnum_or_underscore(char c) {
+int isalnum_or_underscore(char c)
+{
     return isalnum(c) || c == '_';
 }
 
-Token get_next_token() {
+Token get_next_token()
+{
     // Saltar espacios en blanco
-    while (isspace(peek())) {
+    while (isspace(peek()))
+    {
         advance();
     }
 
     char current = peek();
-    
+
     // Fin de archivo
-    if (current == '\0') {
-        Token token = { TOKEN_EOF, strdup("EOF") };
+    if (current == '\0')
+    {
+        Token token = {TOKEN_EOF, strdup("EOF")};
         return token;
     }
-    
+
     // Comentarios
-    if (current == '#') {
+    if (current == '#')
+    {
         advance(); // Consumir el '#'
         size_t start = pos;
-        while (peek() != '\n' && peek() != '\0') {
+        while (peek() != '\n' && peek() != '\0')
+        {
             advance();
         }
         size_t length = pos - start;
-        char* text = malloc(length + 1);
+        char *text = malloc(length + 1);
         strncpy(text, &src[start], length);
         text[length] = '\0';
-        Token token = { TOKEN_COMMENT, text };
+        Token token = {TOKEN_COMMENT, text};
         return token;
     }
-    
-    // Identificadores y palabras clave
-    if (isalpha_or_underscore(current)) {
+
+    // Strings (entre comillas dobles)
+    if (current == '"')
+    {
+        advance(); // Consumir la primera comilla
         size_t start = pos;
-        while (isalnum_or_underscore(peek())) {
+        while (peek() != '"' && peek() != '\0')
+        {
+            advance();
+        }
+
+        if (peek() == '"')
+        {
+            size_t length = pos - start;
+            char *text = malloc(length + 1);
+            strncpy(text, &src[start], length);
+            text[length] = '\0';
+            advance(); // Consumir la comilla final
+
+            Token token = {TOKEN_STRING, text};
+            return token;
+        }
+        else
+        {
+            // Error: cadena no cerrada
+            Token token = {TOKEN_UNKNOWN, strdup("Unterminated string")};
+            return token;
+        }
+    }
+
+    // Identificadores y palabras clave
+    if (isalpha_or_underscore(current))
+    {
+        size_t start = pos;
+        while (isalnum_or_underscore(peek()))
+        {
             advance();
         }
         size_t length = pos - start;
-        char* text = malloc(length + 1);
+        char *text = malloc(length + 1);
         strncpy(text, &src[start], length);
         text[length] = '\0';
-        
+
         TokenType type = TOKEN_IDENTIFIER;
-        // Verificar palabras clave
-        if (strcmp(text, "echo") == 0) {
+        if (strcmp(text, "echo") == 0)
+        {
             type = TOKEN_ECHO;
-        } else if (strcmp(text, "let") == 0) {
+        }
+        else if (strcmp(text, "let") == 0)
+        {
             type = TOKEN_LET;
         }
-        
-        Token token = { type, text };
+
+        Token token = {type, text};
         return token;
     }
-    
+
     // Números
-    if (isdigit(current)) {
+    if (isdigit(current))
+    {
         size_t start = pos;
-        while (isdigit(peek())) {
+        while (isdigit(peek()))
+        {
             advance();
         }
         size_t length = pos - start;
-        char* text = malloc(length + 1);
+        char *text = malloc(length + 1);
         strncpy(text, &src[start], length);
         text[length] = '\0';
-        Token token = { TOKEN_NUMBER, text };
+        Token token = {TOKEN_NUMBER, text};
         return token;
     }
-    
+
     // Operadores y símbolos
     advance(); // Consumir el carácter actual
-    char* text = malloc(2);
+    char *text = malloc(2);
     text[0] = current;
     text[1] = '\0';
-    
+
     Token token;
-    switch (current) {
-        case '=': token.type = TOKEN_ASSIGN; break;
-        case '+': token.type = TOKEN_PLUS; break;
-        case '-': token.type = TOKEN_MINUS; break;
-        case '*': token.type = TOKEN_STAR; break;
-        case '/': token.type = TOKEN_SLASH; break;
-        case ';': token.type = TOKEN_SEMICOLON; break;
-        default: token.type = TOKEN_UNKNOWN; break;
+    switch (current)
+    {
+    case '=':
+        token.type = TOKEN_ASSIGN;
+        break;
+    case '+':
+        token.type = TOKEN_PLUS;
+        break;
+    case '-':
+        token.type = TOKEN_MINUS;
+        break;
+    case '*':
+        token.type = TOKEN_STAR;
+        break;
+    case '/':
+        token.type = TOKEN_SLASH;
+        break;
+    case ';':
+        token.type = TOKEN_SEMICOLON;
+        break;
+    default:
+        token.type = TOKEN_UNKNOWN;
+        break;
     }
-    
+
     token.text = text;
     return token;
 }
 
-void free_token(Token token) {
+void free_token(Token token)
+{
     free(token.text);
 }

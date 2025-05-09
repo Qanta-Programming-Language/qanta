@@ -107,6 +107,16 @@ void compile_expression(Chunk* chunk, ASTNode* node, VM* vm) {
             }
             break;
         }
+        case NODE_STRING: {
+            StringNode* str_node = (StringNode*)node;
+            Value value;
+            value.type = VAL_STRING;
+            value.as.string = strdup(str_node->value);  // Copiar la cadena
+            int constant = add_constant(chunk, value);
+            chunk_write(chunk, OP_CONSTANT);
+            chunk_write(chunk, constant);
+            break;
+        }        
         default:
             printf("Error: tipo de expresión desconocido: %d\n", node->type);
             exit(1);

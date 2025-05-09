@@ -12,6 +12,7 @@ typedef enum {
     NODE_BINARY_EXPR,     // Expresión binaria (ej: x + y)
     NODE_IDENTIFIER,      // Identificador
     NODE_NUMBER,          // Número literal
+    NODE_STRING           // Cadena literal
 } NodeType;
 
 // Estructura base para cualquier nodo AST
@@ -59,6 +60,12 @@ typedef struct {
     int count;             // Número de declaraciones
     int capacity;          // Capacidad del array
 } ProgramNode;
+
+
+typedef struct {
+    ASTNode base;
+    char* value;
+} StringNode;
 
 // Funciones del parser
 ProgramNode* parse(const char* source_code);

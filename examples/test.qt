@@ -1,4 +1,3 @@
-# Esto es un comentario
-let x = 10;
-let y = 10;
-echo x + y;
+# Test de tipo string
+
+echo "Hola"
