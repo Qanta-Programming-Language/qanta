@@ -1,16 +1,16 @@
 # Qanta Programming Language
 
-Qanta es un lenguaje de programación simple e interpretado, diseñado con fines educativos.
+Qanta is a simple, interpreted programming language designed for educational purposes.
 
-## Características
+## Features
 
-- Variables con asignación dinámica
-- Operaciones aritméticas básicas (+, -, *, /)
-- Soporte para strings y números enteros
-- Comentarios de una línea
-- Instrucción de salida (echo)
+- Dynamically allocated variables
+- Basic arithmetic operations (+, -, *, /)
+- Support for strings and integers
+- Single-line comments
+- Output statement (echo)
 
-## Instalación
+## Installation
 
 ```bash
 git clone https://github.com/Qanta-Programming-Language/qanta.git
@@ -18,7 +18,7 @@ cd qanta-programming-language
 make
 ```
 
-## Uso
+## Usage
 
 ```bash
 make clean && make
@@ -26,39 +26,39 @@ make clean && make
 
 ```bash
 ./qanta examples/test.qt
-./qanta examples/test.qt --debug  # Para modo debug
+./qanta examples/test.qt --debug # For debug mode
 ```
 
-## Sintaxis
+## Syntax
 
 ### Variables
 ```qt
 let x = 42;
-let mensaje = "Hola mundo";
+let message = "Hello world";
 ```
 
-### Operaciones
+### Operations
 ```qt
 let a = 5 + 3 * 2;
 let b = 10 - 5;
 ```
 
-### Salida
+### Output
 ```qt
-echo "Hola mundo";
+echo "Hello world";
 echo 42;
 echo variable;
 ```
 
-### Comentarios
+### Comments
 ```qt
-# Esto es un comentario
+# This is a comment
 ```
 
-## Ejemplos
+## Examples
 
-Ver la carpeta `/examples` para más ejemplos de código.
+See the `/examples` folder for more code examples.
 
-## Licencia
+## License
 
-MIT License - Ver archivo LICENSE para más detalles.
+MIT License - See the LICENSE file for details.
