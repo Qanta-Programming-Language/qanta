@@ -1,0 +1,6 @@
+# Example: Using variables with "let"
+
+let x = 10;
+let y = 20;
+
+echo x + y;

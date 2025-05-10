@@ -2,10 +2,10 @@
 
 # Directly
 
-echo "Hello World"
+echo "Variable: Hello World"
 
 # Variable
 
-let text = "Hello World";
+let text = "Directly: Hello World";
 
 echo text;
