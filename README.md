@@ -21,10 +21,6 @@ make
 ## Usage
 
 ```bash
-make clean && make
-```
-
-```bash
 ./qanta examples/test.qt
 ./qanta examples/test.qt --debug # For debug mode
 ```
