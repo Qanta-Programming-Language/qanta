@@ -1,0 +1,9 @@
+# Example: Using all functions
+
+let text = "Math";
+let number = 10;
+let number2 = 5;
+
+echo number + number2
+echo text
+echo "You can only add numbers"
