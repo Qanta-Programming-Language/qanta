@@ -1,6 +1,6 @@
 # Qanta Programming Language
 
-Qanta is a simple, interpreted programming language designed for educational purposes.
+Qanta is a programming language designed for backend use.
 
 ## Features
 
