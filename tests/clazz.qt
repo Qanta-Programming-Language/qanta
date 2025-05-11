@@ -1,0 +1,37 @@
+// 🗃️ Classes
+
+clazz Hello {
+
+    init() {
+        echo "Hello, World!";
+    }
+
+}
+
+Hello();
+
+/* Inhiritance */
+
+clazz Family {
+
+    init() {
+        this.hamster_family = "Cricetidae";
+    }
+
+    hamster () {
+        echo this.hamster_family;
+    }
+
+}
+
+clazz Hamster extends Family {
+
+    init() {
+        super.init();
+    }
+    
+}
+
+let hamster = Hamster();
+hamster.hamster();
+
